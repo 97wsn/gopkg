@@ -6,6 +6,7 @@ require (
 	github.com/go-kratos/kratos/contrib/registry/consul/v2 v2.0.0-20260105075216-c7a58ff59f80
 	github.com/go-kratos/kratos/contrib/registry/etcd/v2 v2.0.0-20260105075216-c7a58ff59f80
 	github.com/go-kratos/kratos/v2 v2.9.2
+	github.com/golang-jwt/jwt/v5 v5.2.2
 	github.com/gorilla/websocket v1.5.3
 	github.com/hashicorp/consul/api v1.33.2
 	github.com/hashicorp/golang-lru/v2 v2.0.7
