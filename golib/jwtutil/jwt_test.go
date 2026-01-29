@@ -11,11 +11,11 @@ import (
 )
 
 func TestParseToken(t *testing.T) {
-	jwtKey := "abcde123456789"
-	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDc1Njg1NDMsIkRhdGEiOnsibWVyY2hhbnRfaWQiOjF9fQ.4z9DpP6PFPgIVwYYU8hGaIuudjPdGt4ok7EfOkKVqs4"
+	jwtKey := "e4da3b7fbbce2345d7772b0674a318d5"
+	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Njk2Njk3MTIsImRhdGEiOnsidXNlcl9pZCI6MSwiQXV0aFR5cGUiOiJBRE1JTiJ9fQ.iuELZmqytKj8al46CkLx-c1t4CCyW1HgX_9kQHeZGio"
 
 	type Data struct {
-		MerchantId int32 `json:"merchant_id"`
+		UserId int32 `json:"user_id"`
 	}
 
 	cls, err := ParseToken(token, func(token *jwt.Token) (any, error) {
@@ -30,10 +30,10 @@ func TestParseToken(t *testing.T) {
 
 func TestParseWith(t *testing.T) {
 	jwtKey := "e4da3b7fbbce2345d7772b0674a318d5"
-	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjUzMTM0MTc1NTMsImRhdGEiOnsibWVyY2hhbnRfaWQiOjEsIkF1dGhUeXBlIjoiQURNSU4ifX0.rH0XbXnNWbYLw2MNPviOvBSbf_81lIroY5l9khfA8tM"
+	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjUzNjk2NjYwMjksImRhdGEiOnsidXNlcl9pZCI6MSwiQXV0aFR5cGUiOiJBRE1JTiJ9fQ.IL3NmMvKVZRNBozlspHyExCEi7FxOO-UHEYbmhGCnk0"
 
 	type Data struct {
-		MerchantId int32 `json:"merchant_id"`
+		UserId int32 `json:"user_id"`
 	}
 
 	data, err := ParseWith[Data](token, func(token *jwt.Token) (any, error) {
@@ -42,7 +42,7 @@ func TestParseWith(t *testing.T) {
 
 	assert.NoError(t, err)
 	assert.NotNil(t, data)
-	assert.Equal(t, int32(1), data.MerchantId)
+	assert.Equal(t, int32(1), data.UserId)
 }
 
 func TestJWT(t *testing.T) {
@@ -51,15 +51,15 @@ func TestJWT(t *testing.T) {
 	}
 
 	type Data struct {
-		MerchantId int32 `json:"merchant_id"`
-		AuthType   string
+		UserId   int32 `json:"user_id"`
+		AuthType string
 	}
 
 	t.Run("jwt", func(t *testing.T) {
 		token, err := GenerateToken(Data{
-			MerchantId: 1,
-			AuthType:   "ADMIN",
-		}, []byte("e4da3b7fbbce2345d7772b0674a318d5"), 999999*time.Hour)
+			UserId:   1,
+			AuthType: "ADMIN",
+		}, []byte("e4da3b7fbbce2345d7772b0674a318d5"), 10000*time.Hour)
 		if err != nil {
 			panic(err)
 		}
