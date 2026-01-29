@@ -41,3 +41,33 @@ func YuanToFen(fee string) (int, error) {
 
 	return ToFen(f), nil
 }
+
+// MustYuanToFen 字符串元转分，如果出错则panic
+func MustYuanToFen(fee string) int {
+	f, err := YuanToFen(fee)
+	if err != nil {
+		panic(err)
+	}
+	return f
+}
+
+// GetDividedAmount
+// 公平算法，在保证总金额完整的前提下，将金额尽量等分，且任意两个元素之间最大差距不超过1分钱
+// 如果不能均分，则金额小的在数组前面
+// 注意，该方法只支持int
+// 如：amount=3,totalFee = 100,则返回[33,33,34]
+// 如：amount=3,totalFee = 98,则返回[32,33,33]
+// 如：amount=3,totalFee = 91,则返回[30,30,31]
+func GetDividedAmount[T integer](amount, count T) []T {
+	if count == 1 {
+		return []T{amount}
+	}
+	ans := make([]T, 0)
+	for i := count; i > 0; i-- {
+		aPart := amount / i
+		amount = amount - aPart
+		ans = append(ans, aPart)
+	}
+
+	return ans
+}

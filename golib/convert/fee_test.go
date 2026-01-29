@@ -1,6 +1,11 @@
 package convert
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestToFen(t *testing.T) {
 	type args struct {
@@ -77,4 +82,58 @@ func TestToYuanString(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestGetDividedAmount(t *testing.T) {
+	type args struct {
+		count  int
+		amount int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "3_99",
+			args: args{count: 3, amount: 99},
+			want: []int{33, 33, 33},
+		},
+		{
+			name: "3_100",
+			args: args{count: 3, amount: 100},
+			want: []int{33, 33, 34},
+		},
+		{
+			name: "3_98",
+			args: args{count: 3, amount: 98},
+			want: []int{32, 33, 33},
+		},
+		{
+			name: "1_100",
+			args: args{count: 1, amount: 100},
+			want: []int{100},
+		},
+		{
+			name: "3_91",
+			args: args{count: 3, amount: 91},
+			want: []int{30, 30, 31},
+		},
+		{
+			name: "3_113",
+			args: args{count: 3, amount: 113},
+			want: []int{37, 38, 38},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := GetDividedAmount(tt.args.amount, tt.args.count); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("GetDividedAmount() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestMustYuanToFen(t *testing.T) {
+	assert.Equal(t, 1234, MustYuanToFen("12.34"))
 }
