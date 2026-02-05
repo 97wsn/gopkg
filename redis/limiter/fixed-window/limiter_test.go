@@ -1,4 +1,4 @@
-package limiter
+package fixed_window
 
 import (
 	"context"
