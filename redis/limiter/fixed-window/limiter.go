@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"gopkg/redis"
+	"github.com/97wsn/gopkg/redis"
 )
 
 const redisPrefix = "rate-limiter:"

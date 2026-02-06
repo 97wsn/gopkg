@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"gopkg/redis"
+	"github.com/97wsn/gopkg/redis"
 )
 
 func TestLimiter_Allow(t *testing.T) {

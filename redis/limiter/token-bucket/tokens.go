@@ -5,7 +5,7 @@ import (
 	_ "embed"
 	"time"
 
-	"gopkg/redis"
+	"github.com/97wsn/gopkg/redis"
 )
 
 type Request struct {
