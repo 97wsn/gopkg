@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"gopkg/redis"
+	"github.com/97wsn/gopkg/redis"
 
 	"golang.org/x/time/rate"
 )
